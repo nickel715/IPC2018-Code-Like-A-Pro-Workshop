@@ -7,6 +7,7 @@ spl_autoload_register(
         static $classes = null;
         if ($classes === null) {
             $classes = array(
+                'busflix\\boarding' => '/Boarding.php',
                 'busflix\\bus' => '/Bus.php',
                 'busflix\\busfullexception' => '/BusFullException.php',
                 'busflix\\failedexception' => '/FailedException.php',

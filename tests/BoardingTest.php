@@ -1,46 +1,26 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 namespace BusFlix;
 
 use PHPUnit\Framework\TestCase;
 
-class BoardingTest extends TestCase {
-
-    public function testBusIsInitiallyEmpty() {
-        $bus = new Bus();
-        $this->assertTrue($bus->isEmpty());
-    }
-
-    public function testBusIsNotEmptyOncePassengerHasBoarded() {
-        $bus = new Bus();
-        $bus->board(new Passenger());
-
+class BoardingTest extends TestCase
+{
+    public function testBoardOneBus(): void
+    {
+        $boarding = new Boarding();
+        $boarding->addBus($bus = new Bus());
+        $boarding->board(new Passenger());
         $this->assertFalse($bus->isEmpty());
     }
-
-    public function testBusIsFullOnceItReachedCapacity() {
-        $bus = new Bus();
-        $bus->board(new Passenger());
-        $bus->board(new Passenger());
-
-        $this->assertTrue($bus->isFull());
-    }
-
-    public function testPassengerCannotBoardFullBus() {
-        $bus = new Bus();
-        $bus->board(new Passenger());
-        $bus->board(new Passenger());
-
-        $this->expectException(BusFullException::class);
-        $bus->board(new Passenger());
-    }
-
-    public function testBusCapacityIsFlexible(): void
+    public function testBoardMultipleBuses(): void
     {
-        $bus = new Bus(3);
-        $bus->board(new Passenger());
-        $bus->board(new Passenger());
-        $bus->board(new Passenger());
-        $this->assertTrue($bus->isFull());
+        $boarding = new Boarding();
+        $boarding->addBus($bus1 = new Bus());
+        $boarding->addBus($bus2 = new Bus());
+        $boarding->board(new Passenger());
+        $boarding->board(new Passenger());
+        $boarding->board(new Passenger());
+        $this->assertTrue($bus1->isFull());
+        $this->assertFalse($bus2->isEmpty());
     }
-
 }
