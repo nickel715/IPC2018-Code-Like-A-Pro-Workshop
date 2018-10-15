@@ -8,12 +8,15 @@ class BoardingTest extends TestCase
 {
     public function testBoardPassenger(): void
     {
-        $boarding = new Boarding($bus = new Bus());
-        $boarding->addPassenger(new Passenger());
-        $boarding->board();
+        $bus = new Bus();
+        $boarding = new Boarding();
+        $passengerQueue = new PassengerQueue();
+        $passengerQueue->addPassenger(new Passenger());
+
+        $boardingResult = $boarding->board($bus, $passengerQueue);
 
         $this->assertFalse($bus->isEmpty());
-        $this->assertFalse($boarding->hasRemainingPassengers());
+        $this->assertFalse($boardingResult->hasRemainingPassengers());
     }
 
     public function testRefuseBoardingToPassenger(): void
@@ -23,12 +26,15 @@ class BoardingTest extends TestCase
         /** @var Passenger|MockObject $passenger */
         $passenger = $this->createMock(Passenger::class);
         $passenger->expects($this->once())
-            ->method('refuseBoarding')
+            ->method('bookingRefused')
             ->with($this->isInstanceOf(BoardingRefuseReceipt::class));
 
-        $boarding = new Boarding($bus);
-        $boarding->addPassenger($passenger);
-        $boarding->board();
-        $this->assertTrue($boarding->hasRemainingPassengers());
+        $boarding = new Boarding();
+        $passengerQueue = new PassengerQueue();
+        $passengerQueue->addPassenger($passenger);
+
+        $boardingResult = $boarding->board($bus, $passengerQueue);
+
+        $this->assertTrue($boardingResult->hasRemainingPassengers());
     }
 }

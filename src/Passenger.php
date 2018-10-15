@@ -3,7 +3,7 @@ namespace BusFlix;
 
 class Passenger
 {
-    public function refuseBoarding(BoardingRefuseReceipt $boardingRefuseReceipt): void
+    public function bookingRefused(BoardingRefuseReceipt $boardingRefuseReceipt): void
     {
     }
 }

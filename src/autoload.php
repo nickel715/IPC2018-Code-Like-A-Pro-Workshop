@@ -9,10 +9,12 @@ spl_autoload_register(
             $classes = array(
                 'busflix\\boarding' => '/Boarding.php',
                 'busflix\\boardingrefusereceipt' => '/BoardingRefuseReceipt.php',
+                'busflix\\boardingresult' => '/BoardingResult.php',
                 'busflix\\bus' => '/Bus.php',
                 'busflix\\busfullexception' => '/BusFullException.php',
                 'busflix\\failedexception' => '/FailedException.php',
                 'busflix\\passenger' => '/Passenger.php',
+                'busflix\\passengerqueue' => '/PassengerQueue.php',
                 'busflix\\seat' => '/Seat.php'
             );
         }
