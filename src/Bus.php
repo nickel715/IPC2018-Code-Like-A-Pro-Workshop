@@ -9,8 +9,10 @@ class Bus {
     /** @var bool  */
     private $empty = true;
 
-    public function __construct($capacity = 2)
-    {
+    public function  __construct(int $capacity = 2) {
+        if ($capacity < 0) {
+            throw new \InvalidArgumentException();
+        }
         $this->capacity = $capacity;
     }
 

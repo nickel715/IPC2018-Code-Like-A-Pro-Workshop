@@ -43,4 +43,9 @@ class BusTest extends TestCase {
         $this->assertTrue($bus->isFull());
     }
 
+    public function testBusWithImpossibleCapacity(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new Bus(-1);
+    }
 }
