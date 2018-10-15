@@ -34,4 +34,13 @@ class BoardingTest extends TestCase {
         $bus->board(new Passenger());
     }
 
+    public function testBusCapacityIsFlexible(): void
+    {
+        $bus = new Bus(3);
+        $bus->board(new Passenger());
+        $bus->board(new Passenger());
+        $bus->board(new Passenger());
+        $this->assertTrue($bus->isFull());
+    }
+
 }
