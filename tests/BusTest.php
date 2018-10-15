@@ -3,6 +3,9 @@ namespace BusFlix;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \BusFlix\Bus
+ */
 class BusTest extends TestCase {
 
     public function testBusIsInitiallyEmpty() {

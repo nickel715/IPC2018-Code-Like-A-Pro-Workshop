@@ -4,6 +4,12 @@ namespace BusFlix;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @uses \BusFlix\Bus
+ * @covers \BusFlix\Boarding
+ * @covers \BusFlix\BoardingResult
+ * @covers \BusFlix\PassengerQueue
+ */
 class BoardingTest extends TestCase
 {
     public function testBoardPassenger(): void

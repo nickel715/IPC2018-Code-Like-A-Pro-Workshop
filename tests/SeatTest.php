@@ -3,6 +3,9 @@ namespace BusFlix;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @covers \BusFlix\Seat
+ */
 class SeatTest extends TestCase {
 
     public function testSeatIsInitiallyAvailable(): void {
