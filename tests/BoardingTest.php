@@ -1,26 +1,34 @@
 <?php declare(strict_types=1);
 namespace BusFlix;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class BoardingTest extends TestCase
 {
-    public function testBoardOneBus(): void
+    public function testBoardPassenger(): void
     {
-        $boarding = new Boarding();
-        $boarding->addBus($bus = new Bus());
-        $boarding->board(new Passenger());
+        $boarding = new Boarding($bus = new Bus());
+        $boarding->addPassenger(new Passenger());
+        $boarding->board();
+
         $this->assertFalse($bus->isEmpty());
+        $this->assertFalse($boarding->hasRemainingPassengers());
     }
-    public function testBoardMultipleBuses(): void
+
+    public function testRefuseBoardingToPassenger(): void
     {
-        $boarding = new Boarding();
-        $boarding->addBus($bus1 = new Bus());
-        $boarding->addBus($bus2 = new Bus());
-        $boarding->board(new Passenger());
-        $boarding->board(new Passenger());
-        $boarding->board(new Passenger());
-        $this->assertTrue($bus1->isFull());
-        $this->assertFalse($bus2->isEmpty());
+        $bus = new Bus(0);
+
+        /** @var Passenger|MockObject $passenger */
+        $passenger = $this->createMock(Passenger::class);
+        $passenger->expects($this->once())
+            ->method('refuseBoarding')
+            ->with($this->isInstanceOf(BoardingRefuseReceipt::class));
+
+        $boarding = new Boarding($bus);
+        $boarding->addPassenger($passenger);
+        $boarding->board();
+        $this->assertTrue($boarding->hasRemainingPassengers());
     }
 }

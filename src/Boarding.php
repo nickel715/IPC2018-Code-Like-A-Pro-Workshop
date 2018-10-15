@@ -6,21 +6,39 @@ namespace BusFlix;
 class Boarding
 {
     /**
-     * @var Bus[]
+     * @var Passenger[]
      */
-    private $buses;
+    private $passengers = [];
 
-    public function addBus(Bus $bus)
+    /**
+     * @var Bus
+     */
+    private $bus;
+
+    public function __construct(Bus $bus)
     {
-        $this->buses[] = $bus;
+        $this->bus = $bus;
     }
 
-    public function board(Passenger $passenger)
+    public function board(): void
     {
-        foreach ($this->buses as $bus) {
-            if (!$bus->isFull()) {
-                $bus->board($passenger);
+        foreach ($this->passengers as $key => $passenger) {
+            if (!$this->bus->isFull()) {
+                $this->bus->board($passenger);
+                unset($this->passengers[$key]);
+            } else {
+                $passenger->refuseBoarding(new BoardingRefuseReceipt());
             }
         }
+    }
+
+    public function addPassenger(Passenger $passenger): void
+    {
+        $this->passengers[] = $passenger;
+    }
+
+    public function hasRemainingPassengers(): bool
+    {
+        return !empty($this->passengers);
     }
 }

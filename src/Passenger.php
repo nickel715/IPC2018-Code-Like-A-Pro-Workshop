@@ -1,6 +1,9 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 namespace BusFlix;
 
-class Passenger {
-
+class Passenger
+{
+    public function refuseBoarding(BoardingRefuseReceipt $boardingRefuseReceipt): void
+    {
+    }
 }
